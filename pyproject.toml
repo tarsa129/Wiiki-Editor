@@ -7,7 +7,7 @@ packages = ["src/wiiki_editor"]
 
 [project]
 name = "wiiki-editor"
-version = "1.1.0"
+version = "1.1.1"
 authors = [
 	{name = "Krummers", email = "krummers10@gmail.com"}
 ]
