@@ -21,11 +21,43 @@ class Article(object):
     def __repr__(self) -> str:
         return f"Article {self.title} on Custom Mario Kart Wiiki"
     
-    def get_text(self, section = -1) -> str:
+    def get_sections(self) -> list[str]:
+        texts = []
+        i = 0
+        # Try sections 0, 1, 2, ... until there exist no more
+        while True:
+            try:
+                texts.append(self.get_text(i))
+                i += 1
+            except KeyError:
+                break
+        
+        # Get every title of every section and store them
+        sections = []
+        for j, text in enumerate(texts):
+            header = text.split("\n")[0]
+            
+            # Handle the first "header" separately
+            if j == 0 and not header.startswith("="):
+                sections.append("0")
+                continue
+            
+            title = header.strip("=").strip()
+            sections.append(title)
+        
+        return sections
+    
+    def get_text(self, section: int | str = -1) -> str:
         if section == -1:
             return self.object.text()
-        else:
+        elif isinstance(section, int):
             return self.object.text(section)
+        else:
+            sections = self.get_sections()
+            if section not in sections:
+                raise KeyError(f"section '{section}' is not present in article")
+            
+            return self.get_text(sections.index(section))
     
     def edit_text(self, text: str, summary = "", section = -1, minor = False) -> None:
         if section == -1:
