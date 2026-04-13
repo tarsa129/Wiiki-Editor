@@ -67,6 +67,9 @@ class DistributionSection(object):
     def __repr__(self) -> str:
         return self.entries.__repr__()
     
+    def __len__(self) -> int:
+        return len(self.entries)
+    
     def __add__(self, entry: tp.Self.Entry) -> tp.Self:
         if not isinstance(entry, DistributionSection.Entry):
             raise TypeError("unsupported type for entry: "
@@ -76,6 +79,17 @@ class DistributionSection(object):
         result.entries.append(entry)
         result.sort_entries()
         return result
+    
+    def __contains__(self, entry: tp.Self.Entry) -> bool:
+        if not isinstance(entry, DistributionSection.Entry):
+            raise TypeError("unsupported type for entry: "
+                            f"'{type(entry).__name__}'")
+        
+        for e in self.entries:
+            if e.name == entry.name:
+                return True
+        
+        return False
     
     def sort_entries(self) -> None:
         self.entries = sorted(self.entries, key = lambda entry:entry.sort_attribute)
