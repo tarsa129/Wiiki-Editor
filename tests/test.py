@@ -10,4 +10,4 @@ secrets = dict(de.dotenv_values(secret_path))
     
 wiiki = wk.Wiiki(secrets["USERNAME"], secrets["PASSWORD"], secrets["API"])
 
-article = wa.Article("Sugar Rush", wiiki)
+article = wa.Article("Chain Chomp Rollercoaster (Mario Circuit Edit)", wiiki)
