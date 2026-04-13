@@ -59,11 +59,17 @@ class Article(object):
             
             return self.get_text(sections.index(section))
     
-    def edit_text(self, text: str, summary = "", section = -1, minor = False) -> None:
+    def edit_text(self, text: str, summary: str = "", section: int | str = -1, minor: bool = False) -> None:
         if section == -1:
             self.object.edit(text, summary, minor)
-        else:
+        elif isinstance(section, int):
             self.object.edit(text, summary, minor, section = section)
+        else:
+            sections = self.get_sections()
+            if section not in sections:
+                raise KeyError(f"section '{section}' is not present in article")
+            
+            return self.edit_text(text, summary, sections.index(section), minor)
     
     def categories(self) -> list[str]:
         categories = set()
