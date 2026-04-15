@@ -37,14 +37,18 @@ class DistributionSection(object):
     def __init__(self, text) -> None:
         end_of_header = text.find("[[distribution]]s:\n")
         if end_of_header == -1:
-            self.header = """== Distributions ==
-            This track is part of the following [[distribution]]s:
-            """
-            self.entries = []
-            return
+            raise ValueError("text is not properly formatted")
         
         self.header = text[:end_of_header + len("[[distribution]]s:\n")]
         text = text[end_of_header + len("[[distribution]]s:\n"):]
+        
+        begin_of_footer = text.rfind("\n\n")
+        if begin_of_footer != -1:
+            self.footer = text[begin_of_footer:]
+            text = text[:begin_of_footer]
+        else:
+            self.footer = ""
+        
         lines = text.split("\n")
         self.entries = []
         
@@ -62,6 +66,7 @@ class DistributionSection(object):
     def __str__(self) -> str:
         string = self.header
         string += "\n".join([str(entry) for entry in self.entries])
+        string += self.footer
         return string
     
     def __repr__(self) -> str:
