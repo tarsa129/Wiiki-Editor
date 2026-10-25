@@ -2,41 +2,36 @@ from wikitextparser import Template
 
 
 class WiikiTemplate:
-    ordered_arguments = []
-    all_arguments = set(ordered_arguments)
+    named = False
 
     def __init__(self, mediawiki_template: Template):
         self.mediawiki_template = mediawiki_template
 
+        # we always want to strip unnecessary whitespace from arguments
         for arg in self.mediawiki_template.arguments:
             self.mediawiki_template.set_arg(arg.name, arg.value.strip())
+        self._set_arguments(mediawiki_template)
 
-        self.arguments = {argument.name: argument.value for argument in self.mediawiki_template.arguments}
-
-    # get and set arguments is a common operation, so use a hash-based lookup
-    # as opposed to list-based wtp arguments list.
-    def get_arguments(self) -> dict[str, str]:
-        return self.arguments
-
-    def get_argument(self, arg: str) -> str:
-        return self.arguments[arg] if arg in self.arguments else None
-
-    # avoid checking the list of allowed arguments, as they are taken out when
-    def set_argument(self, argument: str, value: str):
-        if argument in self.__class__.all_arguments:
-            self.arguments[argument] = value.strip()
+    def _set_arguments(self, mediawiki_template: Template):
+        # here, the template arguments are converted to instance variables
+        # this logic is left to each class
+        pass
 
     # when doing one operation on one page, to_text only needs to be called once (when saving back)
-    def to_text(self, single_line=False):
-        self._reorder_args()
-        return str(self) if single_line else self.mediawiki_template.pformat()
+    def to_text(self):
+        self._assign_arguments(self._get_arguments())
+        if self.__class__.named:
+            return self.mediawiki_template.pformat(indent='').replace(r"\n[|] (.*) = (.*)", r"\n|\1= \2")
+        else:
+            return str(self.mediawiki_template)
 
-    def _reorder_args(self, single_line=False):
+    def _get_arguments(self):
+        # here, the instance variables are converted to a dict.
+        # this logic is left to each class
+        return {}
+
+    def _assign_arguments(self, arguments):
         for arg in reversed(self.mediawiki_template.arguments):
             del arg[:]
-        for argument in self.__class__.ordered_arguments:
-            if argument in self.arguments:
-                if single_line:
-                    self.mediawiki_template.set_arg(argument, self.arguments[argument])
-                else:
-                    self.mediawiki_template.set_arg(argument, f" {self.arguments[argument]}")
+        for name, value in arguments.items():
+            self.mediawiki_template.set_arg(name, value)
