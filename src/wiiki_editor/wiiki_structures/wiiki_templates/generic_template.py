@@ -18,7 +18,7 @@ class WiikiTemplate:
         pass
 
     # when doing one operation on one page, to_text only needs to be called once (when saving back)
-    def to_text(self):
+    def __str__(self):
         self._assign_arguments(self._get_arguments())
         if self.__class__.named:
             return self._mediawiki_template.pformat(indent='').replace(r"\n[|] (.*) = (.*)", r"\n|\1= \2")
