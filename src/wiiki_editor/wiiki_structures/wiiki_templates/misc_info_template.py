@@ -22,8 +22,6 @@ class MiscInfoTemplate(WiikiTemplate):
         self.name = mediawiki_template.get_arg_value_or_default("name")
         self.wbz_id = mediawiki_template.get_arg_value_or_default("wbz-id")
 
-        self.designers = mediawiki_template.get_arg_value_or_default("designer")
-
         self.images = []
         self.images.append(MiscInfoTemplateImage(mediawiki_template.get_arg_value_or_default("image"),
                                       mediawiki_template.get_arg_value_or_default("image-id"),
