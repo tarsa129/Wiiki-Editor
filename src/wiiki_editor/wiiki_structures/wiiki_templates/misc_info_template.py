@@ -10,7 +10,7 @@ class MiscInfoTemplateImage:
         self.description = description
 
     def __bool__(self):
-        return self.file or self.wbz_id or self.description
+        return bool(self.file) or bool(self.wbz_id) or bool(self.description)
 
 
 class MiscInfoTemplate(WiikiTemplate):
@@ -30,7 +30,7 @@ class MiscInfoTemplate(WiikiTemplate):
             self.images.append(MiscInfoTemplateImage(mediawiki_template.get_arg_value_or_default(f"image{i}"),
                                           mediawiki_template.get_arg_value_or_default(f"image-id{i}"),
                                           mediawiki_template.get_arg_value_or_default(f"image-description{i}")))
-        self.images = filter(lambda x: bool(x), self.images)
+        self.images = list(filter(lambda x: bool(x), self.images))
 
         self.author = mediawiki_template.get_arg_value_or_default("author")
         self.creator = mediawiki_template.get_arg_value_or_default("creator")
@@ -46,4 +46,4 @@ class MiscInfoTemplate(WiikiTemplate):
         self.downloads.append(mediawiki_template.get_arg_value_or_default("download"))
         for i in range(2, 11):
             self.downloads.append(mediawiki_template.get_arg_value_or_default(f"download{i}"))
-        self.downloads = filter(lambda x: bool(x), self.images)
+        self.downloads = list(filter(lambda x: x is not None, self.downloads))
