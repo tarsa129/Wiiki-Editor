@@ -1,7 +1,7 @@
 from wikitextparser import Template
 
 
-def get_arg_value_or_default(self, name: str, default) -> str | None:
+def get_arg_value_or_default(self, name: str, default= None) -> str | None:
     return self.get_arg(name).value if self.has_arg(name) else default
 Template.get_arg_value_or_default = get_arg_value_or_default
 
