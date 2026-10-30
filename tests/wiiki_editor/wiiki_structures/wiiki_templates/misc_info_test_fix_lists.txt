@@ -8,4 +8,5 @@
 |editors used= [[3ds Max]], [[Blender]], [[BrawlCrate]], [https://github.com/tarsa129/gcn-kmp-editor-demake gcn kmp editor (demake)], [[KMP Cloud]], [[Lorenzi's KMP Editor]], [[Wiimms SZS Tools]]
 |wbz-id= 11621
 |download3= https://drive.google.com/file/d/1tzJ6rg9RZ98jK_v5bYVT_rnIV51iKNsY
+|download5=
 }}
