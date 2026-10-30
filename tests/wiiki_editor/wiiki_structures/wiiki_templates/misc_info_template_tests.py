@@ -43,3 +43,23 @@ class TestMiscInfoTemplateTemplate(TestCase):
         self.assertIsNone(template.wbz_id)
         self.assertIsNone(template.scale)
         self.assertIsNone(template.ai_usage)
+
+    def test_full_track(self):
+        template = MiscInfoTemplate(read_template_from_file("misc_info_test_full_track.txt"))
+        self.assertEqual(template.name, "{{PAGENAME}}")
+
+        self.assertEqual(len(template.images), 10)
+        for i in range(10):
+            self.assertEqual(template.images[i].wbz_id, f"{i + 1}")
+            self.assertEqual(template.images[i].description, f"image description {i + 1}")
+            self.assertEqual(template.images[i].file, f"File{i + 1}.jpg")
+
+        self.assertEqual(template.version, "v2.0")
+        self.assertEqual(template.date_of_release, "2024-05-07")
+        self.assertEqual(template.ai_usage, "none lol")
+        self.assertEqual(template.scale, "100%")
+        self.assertEqual(template.wbz_id, "11621")
+
+        self.assertEqual(len(template.downloads), 10)
+        for i in range(10):
+            self.assertEqual(template.downloads[i], f"download{i + 1}_link")
