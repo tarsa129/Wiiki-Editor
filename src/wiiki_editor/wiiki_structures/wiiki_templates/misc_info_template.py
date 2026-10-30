@@ -46,4 +46,4 @@ class MiscInfoTemplate(WiikiTemplate):
         self.downloads.append(mediawiki_template.get_arg_value_or_default("download"))
         for i in range(2, 11):
             self.downloads.append(mediawiki_template.get_arg_value_or_default(f"download{i}"))
-        self.downloads = list(filter(lambda x: x is not None, self.downloads))
+        self.downloads = list(filter(lambda x: x is not None and x, self.downloads))
