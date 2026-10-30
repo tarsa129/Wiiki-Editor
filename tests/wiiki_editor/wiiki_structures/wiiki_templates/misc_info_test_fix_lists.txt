@@ -1,6 +1,7 @@
 {{Misc-Info
 |name= {{PAGENAME}}
 |image-id4= 20703
+|image-description8= image 8 description
 |author= [[LucioWins]]
 |version= v2.0
 |date of release= 2024-05-07

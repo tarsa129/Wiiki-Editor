@@ -21,8 +21,9 @@ class TestMiscInfoTemplateTemplate(TestCase):
     def test_fix_lists(self):
         template = MiscInfoTemplate(read_template_from_file("misc_info_test_fix_lists.txt"))
         self.assertEqual(template.name, "{{PAGENAME}}")
-        self.assertEqual(len(template.images), 1)
+        self.assertEqual(len(template.images), 2)
         self.assertEqual(template.images[0].wbz_id, "20703")
+        self.assertEqual(template.images[1].description, "image 8 description")
         self.assertEqual(template.version, "v2.0")
         self.assertEqual(template.date_of_release, "2024-05-07")
         self.assertEqual(template.wbz_id, "11621")
