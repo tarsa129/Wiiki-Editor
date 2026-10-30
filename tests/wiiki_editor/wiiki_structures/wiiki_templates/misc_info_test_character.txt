@@ -1,0 +1,9 @@
+{{Misc-Info
+|name= {{Extract-Title|{{PAGENAME}}}}
+|creator= [[tarsa129]], [[ordartz]]
+|designer= [[tarsa129]]
+|version= v1.0
+|date of release= 2022-04-13
+|editors used= [[3ds Max]], [[BrawlCrate]], [https://adobe.com/products/photoshop Photoshop]
+|download= https://drive.google.com/file/d/107TW6bXufezpuFjW_Ovhb5RLh1pIHunv
+}}
