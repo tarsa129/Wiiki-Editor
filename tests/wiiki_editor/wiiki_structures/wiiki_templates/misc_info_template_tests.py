@@ -1,0 +1,65 @@
+from unittest import TestCase
+
+from src.wiiki_editor.wiiki_structures.wiiki_templates.misc_info_template import MiscInfoTemplate
+from tests.wiiki_editor.wiiki_structures.wiiki_templates.template_test_helper_functions import read_template_from_file
+
+
+class TestMiscInfoTemplateTemplate(TestCase):
+    def test_basic_track(self):
+        template = MiscInfoTemplate(read_template_from_file("misc_info_test_basic_track.txt"))
+        self.assertEqual(template.name, "{{PAGENAME}}")
+        self.assertEqual(len(template.images), 1)
+        self.assertEqual(template.images[0].wbz_id, "20703")
+        self.assertEqual(template.version, "v2.0")
+        self.assertEqual(template.date_of_release, "2024-05-07")
+        self.assertEqual(template.wbz_id, "11621")
+        self.assertListEqual(template.downloads, ["https://drive.google.com/file/d/1tzJ6rg9RZ98jK_v5bYVT_rnIV51iKNsY"])
+
+        self.assertIsNone(template.scale)
+        self.assertIsNone(template.ai_usage)
+
+    def test_fix_lists(self):
+        template = MiscInfoTemplate(read_template_from_file("misc_info_test_fix_lists.txt"))
+        self.assertEqual(template.name, "{{PAGENAME}}")
+        self.assertEqual(len(template.images), 2)
+        self.assertEqual(template.images[0].wbz_id, "20703")
+        self.assertEqual(template.images[1].description, "image 8 description")
+        self.assertEqual(template.version, "v2.0")
+        self.assertEqual(template.date_of_release, "2024-05-07")
+        self.assertEqual(template.wbz_id, "11621")
+        self.assertListEqual(template.downloads, ["https://drive.google.com/file/d/1tzJ6rg9RZ98jK_v5bYVT_rnIV51iKNsY"])
+
+        self.assertIsNone(template.scale)
+        self.assertIsNone(template.ai_usage)
+
+    def test_character(self):
+        template = MiscInfoTemplate(read_template_from_file("misc_info_test_character.txt"))
+        self.assertEqual(template.name, "{{Extract-Title|{{PAGENAME}}}}")
+        self.assertEqual(template.version, "v1.0")
+        self.assertEqual(template.date_of_release, "2022-04-13")
+        self.assertListEqual(template.downloads, ["https://drive.google.com/file/d/107TW6bXufezpuFjW_Ovhb5RLh1pIHunv"])
+
+        self.assertListEqual(template.images, [])
+        self.assertIsNone(template.wbz_id)
+        self.assertIsNone(template.scale)
+        self.assertIsNone(template.ai_usage)
+
+    def test_full_track(self):
+        template = MiscInfoTemplate(read_template_from_file("misc_info_test_full_track.txt"))
+        self.assertEqual(template.name, "{{PAGENAME}}")
+
+        self.assertEqual(len(template.images), 10)
+        for i in range(10):
+            self.assertEqual(template.images[i].wbz_id, f"{i + 1}")
+            self.assertEqual(template.images[i].description, f"image description {i + 1}")
+            self.assertEqual(template.images[i].file, f"File{i + 1}.jpg")
+
+        self.assertEqual(template.version, "v2.0")
+        self.assertEqual(template.date_of_release, "2024-05-07")
+        self.assertEqual(template.ai_usage, "none lol")
+        self.assertEqual(template.scale, "100%")
+        self.assertEqual(template.wbz_id, "11621")
+
+        self.assertEqual(len(template.downloads), 10)
+        for i in range(10):
+            self.assertEqual(template.downloads[i], f"download{i + 1}_link")

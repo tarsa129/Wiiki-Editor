@@ -1,0 +1,12 @@
+{{Misc-Info
+|name= {{PAGENAME}}
+|image-id4= 20703
+|image-description8= image 8 description
+|author= [[LucioWins]]
+|version= v2.0
+|date of release= 2024-05-07
+|editors used= [[3ds Max]], [[Blender]], [[BrawlCrate]], [https://github.com/tarsa129/gcn-kmp-editor-demake gcn kmp editor (demake)], [[KMP Cloud]], [[Lorenzi's KMP Editor]], [[Wiimms SZS Tools]]
+|wbz-id= 11621
+|download3= https://drive.google.com/file/d/1tzJ6rg9RZ98jK_v5bYVT_rnIV51iKNsY
+|download5=
+}}
